@@ -1,0 +1,30 @@
+{
+  "name": "cerebral-angular",
+  "version": "0.1.0",
+  "description": "Angular View layer package for Cerebral",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianalfoni/cerebral-angular.git"
+  },
+  "keywords": [
+    "cerebral",
+    "angular",
+    "state",
+    "mvc",
+    "flux",
+    "immutable"
+  ],
+  "author": "Christian Alfoni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christianalfoni/cerebral-angular/issues"
+  },
+  "homepage": "https://github.com/christianalfoni/cerebral-angular#readme",
+  "peerDependencies": {
+    "angular": "^1.4.4"
+  }
+}
