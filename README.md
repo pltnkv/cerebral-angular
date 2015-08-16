@@ -19,6 +19,7 @@ We are going to use a file structure where we use `main.js`, `run.js` and `confi
 ### The provider
 *main.js*
 ```js
+import 'cerebral-angular'; // Exposes module
 import config from './config.js';
 
 angular.module('app', ['cerebral'])
@@ -27,6 +28,8 @@ angular.module('app', ['cerebral'])
 
 *config.js*
 ```js
+// The controller you have created for your app,
+// as explained in the chosen MODEL package
 import controller from './controller.js';
 
 export default function (cerebralProvider) {
