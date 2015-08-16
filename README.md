@@ -19,6 +19,7 @@ We are going to use a file structure where we use `main.js`, `run.js` and `confi
 ### The provider
 *main.js*
 ```js
+import 'cerebral-angular'; // Exposes module
 import config from './config.js';
 
 angular.module('app', ['cerebral'])
