@@ -23,6 +23,7 @@ angular.module('cerebral', [])
 
       // Add default services
       var args = arguments;
+      controller.defaultInput = controller.defaultInput || {};
       controller.defaultInput.services = {};
       services.forEach(function (service, index) {
         controller.defaultInput.services[service] = args[index];
@@ -31,12 +32,12 @@ angular.module('cerebral', [])
       // Create state injection method
       controller.injectState = function ($scope, paths) {
 
-        var update = function () {
+        var update = function (preventDigest) {
           var newState = controller.get();
           Object.keys(paths).forEach(function (key) {
             $scope[key] = getValue(paths[key], newState);
           });
-          newState && $scope.$apply();
+          !preventDigest && $scope.$apply();
         };
 
         $scope.$on('$destroy', function () {
@@ -45,7 +46,7 @@ angular.module('cerebral', [])
 
         controller.on('change', update);
         controller.on('remember', update);
-        update();
+        update(true);
 
       };
 
