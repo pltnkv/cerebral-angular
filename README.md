@@ -28,6 +28,8 @@ angular.module('app', ['cerebral'])
 
 *config.js*
 ```js
+// The controller you have created for your app,
+// as explained in the chosen MODEL package
 import controller from './controller.js';
 
 export default function (cerebralProvider) {
