@@ -44,8 +44,8 @@ export default function (cerebralProvider) {
 The default inputs also includes default services from Angular.
 
 ```js
-const someAction = function someAction (input, state, output) {
-  input.services.$http // Do server fetching etc.
+const someAction = function someAction (input, state, output, services) {
+  services.$http // Do server fetching etc.
 };
 ```
 

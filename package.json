@@ -1,6 +1,6 @@
 {
   "name": "cerebral-angular",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Angular View layer package for Cerebral",
   "main": "index.js",
   "scripts": {

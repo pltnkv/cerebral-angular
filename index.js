@@ -23,10 +23,8 @@ angular.module('cerebral', [])
 
       // Add default services
       var args = arguments;
-      controller.defaultInput = controller.defaultInput || {};
-      controller.defaultInput.services = {};
       services.forEach(function (service, index) {
-        controller.defaultInput.services[service] = args[index];
+        controller.services[service] = args[index];
       });
 
       // Create state injection method
