@@ -19,12 +19,17 @@ angular.module('cerebral', [])
       controller = controllerInstance;
     };
 
-    this.$get = services.concat([function () {
+    this.setServices = function (requiredServices) {
+      requiredServices = requiredServices || [];
+      services = requiredServices
+    };
+
+    this.$get = ['$injector', function ($injector) {
 
       // Add default services
       var args = arguments;
       services.forEach(function (service, index) {
-        controller.services[service] = args[index];
+        controller.services[service] = $injector.get(service);
       });
 
       // Create state injection method
@@ -49,7 +54,7 @@ angular.module('cerebral', [])
       };
 
       return controller;
-    }]);
+    }];
   });
 
 module.exports = angular;
