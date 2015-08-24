@@ -42,8 +42,8 @@ export default function (cerebralProvider) {
 };
 ```
 
-### Included services
-Services defined in `cerebralProvider.setServices()` call will be available in services object passed as fourth argument to actions.
+### Services
+Services defined in `cerebralProvider.setServices()` call will be available in services object passed as fourth argument to actions. By default the `$http` service is available.
 
 ```js
 const someAction = function someAction (input, state, output, services) {
