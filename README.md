@@ -36,12 +36,14 @@ export default function (cerebralProvider) {
 
   // Sets the controller for the application
   cerebralProvider.setController(controller);
+  // Defines angular injectable services exposed to actions
+  cerebralProvider.setServices(['$http', '$resource']);
 
 };
 ```
 
 ### Included services
-The default inputs also includes default services from Angular.
+Services defined in `cerebralProvider.setServices()` call will be available in services object passed as fourth argument to actions.
 
 ```js
 const someAction = function someAction (input, state, output, services) {
