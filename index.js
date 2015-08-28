@@ -3,11 +3,11 @@ var angular = global.angular || require('angular');
 var makeMutable = function (obj) {
   if (obj instanceof Array) {
     return obj.map(function (obj) {
-      return utils.toJS(obj);
+      return makeMutable(obj);
     });
   } else if (typeof obj === 'object' && obj !== null) {
     return Object.keys(obj).reduce(function (newObj, key) {
-      newObj[key] = utils.toJS(obj[key]);
+      newObj[key] = makeMutable(obj[key]);
       return newObj;
     }, {});
   } else {
