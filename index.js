@@ -63,7 +63,6 @@ angular.module('cerebral', [])
         });
 
         controller.on('change', update);
-        controller.on('remember', update);
         update(true);
 
       };
