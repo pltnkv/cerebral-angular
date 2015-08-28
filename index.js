@@ -1,13 +1,5 @@
 var angular = global.angular || require('angular');
 
-var getValue = function (path, obj) {
-  path = path.slice();
-  while (path.length) {
-    obj = obj[path.shift()];
-  }
-  return obj;
-};
-
 var makeMutable = function (obj) {
   if (obj instanceof Array) {
     return obj.map(function (obj) {
@@ -51,9 +43,8 @@ angular.module('cerebral', [])
       controller.injectState = function ($scope, paths, isMutable) {
 
         var update = function (preventDigest) {
-          var newState = controller.get();
           Object.keys(paths).forEach(function (key) {
-            $scope[key] = isMutable ? makeMutable(getValue(paths[key], newState)) : getValue(paths[key], newState);
+            $scope[key] = isMutable ? makeMutable(controller.get(paths[key])) : controller.get(paths[key]);
           });
           !preventDigest && $scope.$apply();
         };
