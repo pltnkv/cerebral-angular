@@ -8,6 +8,21 @@ var getValue = function (path, obj) {
   return obj;
 };
 
+var makeMutable = function (obj) {
+  if (obj instanceof Array) {
+    return obj.map(function (obj) {
+      return utils.toJS(obj);
+    });
+  } else if (typeof obj === 'object' && obj !== null) {
+    return Object.keys(obj).reduce(function (newObj, key) {
+      newObj[key] = utils.toJS(obj[key]);
+      return newObj;
+    }, {});
+  } else {
+    return obj;
+  }
+};
+
 angular.module('cerebral', [])
   .provider('cerebral', function () {
 
@@ -33,12 +48,12 @@ angular.module('cerebral', [])
       });
 
       // Create state injection method
-      controller.injectState = function ($scope, paths) {
+      controller.injectState = function ($scope, paths, isMutable) {
 
         var update = function (preventDigest) {
           var newState = controller.get();
           Object.keys(paths).forEach(function (key) {
-            $scope[key] = getValue(paths[key], newState);
+            $scope[key] = isMutable ? makeMutable(getValue(paths[key], newState)) : getValue(paths[key], newState);
           });
           !preventDigest && $scope.$apply();
         };
@@ -51,6 +66,10 @@ angular.module('cerebral', [])
         controller.on('remember', update);
         update(true);
 
+      };
+
+      controller.injectMutableState = function ($scope, paths) {
+        controller.injectState($scope, paths, true);
       };
 
       return controller;

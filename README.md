@@ -92,6 +92,13 @@ export default function () {
         list: ['list']
       });
 
+      // You can also make a mutable version of the
+      // the state, which is often useful if you want
+      // to change an existing entity
+      cerebral.injectMutableState($scope, {
+        user: ['user']
+      });
+
       // Trigger signals
       $scope.addItemClicked = function () {
         cerebral.signals.addItemClicked({
