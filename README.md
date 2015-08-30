@@ -111,6 +111,32 @@ export default function () {
 };
 ```
 
+#### Get state using 'bindToController'
+```js
+export default function () {
+  return {
+    controllerAs: 'myComponent',
+    bindToController: true,
+    scope: {},
+    template: `<div>  {{myComponent.list}}  </div>`
+    controller: function ($scope, cerebral) {
+
+      cerebral.injectState($scope, {
+        list: ['list']
+      }, this); // pass in an optional argument 
+                // to which the properties are attached to.
+
+      cerebral.injectMutableState($scope, {
+        user: ['user']
+      }, this);
+
+    }
+  };
+};
+```
+
+
+
 ### Recording
 With the Cerebral controller you can record and replay state changes.
 

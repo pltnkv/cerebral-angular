@@ -40,11 +40,16 @@ angular.module('cerebral', [])
       });
 
       // Create state injection method
-      controller.injectState = function ($scope, paths, isMutable) {
+      controller.injectState = function ($scope, paths, viewModel, isMutable) {
 
         var update = function (preventDigest) {
           Object.keys(paths).forEach(function (key) {
-            $scope[key] = isMutable ? makeMutable(controller.get(paths[key])) : controller.get(paths[key]);
+            var val = isMutable ? makeMutable(controller.get(paths[key])) : controller.get(paths[key]);
+            if(viewModel) {
+              viewModel[key] = val;
+            } else {
+              $scope[key] = val;
+            }
           });
           !preventDigest && $scope.$apply();
         };
@@ -58,8 +63,8 @@ angular.module('cerebral', [])
 
       };
 
-      controller.injectMutableState = function ($scope, paths) {
-        controller.injectState($scope, paths, true);
+      controller.injectMutableState = function ($scope, paths, viewModel) {
+        controller.injectState($scope, paths, viewModel, true);
       };
 
       return controller;
