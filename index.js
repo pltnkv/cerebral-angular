@@ -64,6 +64,9 @@ angular.module('cerebral', [])
 
       return controller;
     }];
-  });
+  })
+  .run(['cerebral', function (cerebral) {
+    cerebral.devtools.start();
+  }]);
 
 module.exports = angular;
