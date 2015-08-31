@@ -55,7 +55,7 @@ angular.module('cerebral', [])
         };
 
         $scope.$on('$destroy', function () {
-          controller.off('change', update);
+          controller.removeListener('change', update);
         });
 
         controller.on('change', update);
