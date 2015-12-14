@@ -72,6 +72,9 @@ angular.module('cerebral', [])
   })
   .run(['cerebral', function (cerebral) {
     cerebral.devtools.start();
+    if (cerebral.services.router) {
+      cerebral.services.router.trigger();
+    }
   }]);
 
 module.exports = angular;
