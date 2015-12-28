@@ -29,9 +29,8 @@
     "angular": "^1.4.4"
   },
   "devDependencies": {
-    "cerebral": "^0.16.0",
-    "cerebral-immutable-store": "^0.1.0",
-    "immutable-store": "^0.5.2",
+    "cerebral": "^0.26.0",
+    "cerebral-baobab": "^0.4.0",
     "babel-core": "^5.8.3",
     "babel-loader": "^5.3.2",
     "css-loader": "^0.15.6",

@@ -123,7 +123,7 @@ export default function () {
 
       cerebral.injectState($scope, {
         list: ['list']
-      }, this); // pass in an optional argument 
+      }, this); // pass in an optional argument
                 // to which the properties are attached to.
 
       cerebral.injectMutableState($scope, {
@@ -134,37 +134,3 @@ export default function () {
   };
 };
 ```
-
-
-
-### Recording
-With the Cerebral controller you can record and replay state changes.
-
-*components/MyComponent.js*
-```js
-export default function () {
-  return {
-    controllerAs: 'myComponent',
-    scope: {},
-    templateUrl: 'myComponent.html',
-    controller: function ($scope, cerebral) {
-
-      // Start recording by passing the initial state of the recording
-      cerebral.recorder.record(controller.get());
-
-      // Stop recording
-      cerebral.recorder.stop();
-
-      // Seek to specific time and optionally start playback
-      cerebral.recorder.seek(0, true);
-
-    }
-  };
-};
-```
-
-## Try it out
-1. Clone repo
-2. `npm install`
-3. `npm start`
-4. Go to `localhost:8080`
