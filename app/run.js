@@ -11,10 +11,10 @@ import {
 
 export default function (cerebral) {
 
-  cerebral.signal('newTodoSubmitted', addTodo, resetNewTodoTitle, countTodos, setVisibleTodos);
-  cerebral.signal('completeAllToggled', toggleAllCompleted, countTodos);
-  cerebral.signal('newTodoTitleChanged', setNewTodoTitle);
-  cerebral.signal('completedToggled', toggleCompleted);
-  cerebral.signal('todoRemoved', removeTodo, setVisibleTodos, countTodos);
+  cerebral.signal('newTodoSubmitted', [addTodo, resetNewTodoTitle, countTodos]);
+  cerebral.signal('completeAllToggled', [toggleAllCompleted, countTodos]);
+  cerebral.signal('newTodoTitleChanged', [setNewTodoTitle]);
+  cerebral.signal('completedToggled', [toggleCompleted]);
+  cerebral.signal('todoRemoved', [removeTodo, countTodos]);
 
 };

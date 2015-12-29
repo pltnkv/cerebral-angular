@@ -5,7 +5,8 @@ var config = {
   entry: ['webpack-dev-server/client?http://localhost:8080', path.resolve(__dirname, 'app/main.js')],
   devtool: 'eval-source-map',
   output: {
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/build/'
   },
   resolve: {
     alias: {
