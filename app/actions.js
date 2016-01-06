@@ -21,16 +21,6 @@ export default {
   setNewTodoTitle(args, state) {
     state.set('newTodoTitle', args.title);
   },
-  setVisibleTodos(args, state) {
-    const todos = state.get('todos');
-    const filter = state.get('filter');
-    const visibleTodos = Object.keys(todos).filter(function (todoRef) {
-      return (
-        filter === 'all'
-      )
-    });
-    state.set('visibleTodos', visibleTodos);
-  },
   countTodos(args, state) {
     const todos = state.get('todos');
     const count = Object.keys(todos).reduce(function (count, todoRef) {
@@ -61,6 +51,6 @@ export default {
     state.set(['todos', args.ref, 'completed'], !todo.completed);
   },
   removeTodo(args, state) {
-    state.unset('todos', args.ref);
+    state.unset('todos', [args.ref]);
   }
 };

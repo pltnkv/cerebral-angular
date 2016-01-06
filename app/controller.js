@@ -1,40 +1,38 @@
 import Controller from 'cerebral';
-import Model from 'cerebral-immutable-store';
+import Model from 'cerebral-baobab';
+import { monkey } from 'baobab';
 
-const hasTodos = function () {
-  return {
-    value: false,
-    deps: {todos: ['todos']},
-    get(value, deps) {
-      return !!Object.keys(deps.todos).length;
-    }
-  };
-};
+const hasTodos = monkey({
+  cursors: {
+    todos: ['todos']
+  },
+  get: function (data) {
+    return !!Object.keys(data.todos).length
+  }
+});
 
-const visibleTodos = function () {
-  return {
-    value: [],
-    deps: {todos: ['todos']},
-    get(refs, deps) {
-      return refs.map((ref) => deps.todos[ref]);
-    }
-  };
-};
+const visibleTodos = monkey({
+  cursors: {
+    todos: ['todos']
+  },
+  get: function (data) {
+    return Object.keys(data.todos).map(key => data.todos[key])
+  }
+});
 
-const isAllCompleted = function () {
-  return {
-    value: false,
-    deps: {visibleTodos: ['visibleTodos'], todos: ['todos']},
-    get(value, deps) {
-      return deps.visibleTodos.reduce(function (isAllCompleted, todo) {
-        if (!todo.completed) {
-          return false;
-        }
-        return isAllCompleted;
-      }, true);
-    }
-  };
-};
+const isAllCompleted = monkey({
+  cursors: {
+    visibleTodos: ['visibleTodos']
+  },
+  get: function (data) {
+    return data.visibleTodos.reduce(function (isAllCompleted, todo) {
+      if (!todo.completed) {
+        return false;
+      }
+      return isAllCompleted;
+    }, true);
+  }
+});
 
 const model = Model({
   nextRef: 0,
