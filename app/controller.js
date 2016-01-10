@@ -1,5 +1,5 @@
 import Controller from 'cerebral';
-import Model from 'cerebral-baobab';
+import Model from 'cerebral-model-baobab';
 import { monkey } from 'baobab';
 
 const hasTodos = monkey({

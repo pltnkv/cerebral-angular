@@ -1,5 +1,5 @@
 export default {
-  addTodo(args, state) {
+  addTodo({state}) {
     let ref = state.get('nextRef');
 
     state.set(['todos', ref], {
@@ -15,13 +15,13 @@ export default {
     };
 
   },
-  resetNewTodoTitle(args, state) {
+  resetNewTodoTitle({state}) {
     state.set('newTodoTitle', '');
   },
-  setNewTodoTitle(args, state) {
-    state.set('newTodoTitle', args.title);
+  setNewTodoTitle({input, state}) {
+    state.set('newTodoTitle', input.title);
   },
-  countTodos(args, state) {
+  countTodos({state}) {
     const todos = state.get('todos');
     const count = Object.keys(todos).reduce(function (count, todoRef) {
       if (todos[todoRef].completed) {
@@ -36,7 +36,7 @@ export default {
       completedCount: count.completed
     });
   },
-  toggleAllCompleted(args, state) {
+  toggleAllCompleted({state}) {
       const isAllCompleted = state.get('isAllCompleted');
       const visibleTodos = state.get('visibleTodos').forEach(function (todo) {
         if (isAllCompleted) {
@@ -46,11 +46,11 @@ export default {
         }
       });
   },
-  toggleCompleted(args, state) {
-    const todo = state.get(['todos', args.ref]);
-    state.set(['todos', args.ref, 'completed'], !todo.completed);
+  toggleCompleted({input, state}) {
+    const todo = state.get(['todos', input.ref]);
+    state.set(['todos', input.ref, 'completed'], !todo.completed);
   },
-  removeTodo(args, state) {
-    state.unset('todos', [args.ref]);
+  removeTodo({input, state}) {
+    state.unset('todos', [input.ref]);
   }
 };

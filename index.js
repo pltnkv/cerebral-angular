@@ -15,33 +15,15 @@ var makeMutable = function (obj) {
   }
 };
 
+var controller = null;
+
 angular.module('cerebral', [])
-  .provider('cerebral', function () {
-
-    var services = ['$http'];
-    var controller = null;
-    var defaultArgs = {};
-
-    this.setController = function (controllerInstance) {
-      controller = controllerInstance;
-    };
-
-    this.setServices = function (requiredServices) {
-      requiredServices = requiredServices || [];
-      services = requiredServices
-    };
-
-    this.$get = ['$injector', function ($injector) {
-
-      // Add default services
-      var args = arguments;
-      services.forEach(function (service, index) {
-        controller.services[service] = $injector.get(service);
-      });
-
-      // Create state injection method
-      controller.injectState = function ($scope, paths, viewModel, isMutable) {
-
+  .service('signals', function () {
+    return controller.getSignals();
+  })
+  .service('state', function () {
+    var state = {
+      inject: function ($scope, paths, viewModel, isMutable) {
         var update = function (preventDigest) {
           Object.keys(paths).forEach(function (key) {
             var val = isMutable ? makeMutable(controller.get(paths[key])) : controller.get(paths[key]);
@@ -51,7 +33,7 @@ angular.module('cerebral', [])
               $scope[key] = val;
             }
           });
-          !preventDigest && $scope.$apply();
+          preventDigest !== true && $scope.$apply();
         };
 
         $scope.$on('$destroy', function () {
@@ -60,20 +42,34 @@ angular.module('cerebral', [])
 
         controller.on('change', update);
         update(true);
+      },
+      injectMutable: function ($scope, paths, viewModel) {
+        state.injectState($scope, paths, viewModel, true);
+      }
+    }
+    return state;
+  })
+  .provider('cerebral', function () {
 
-      };
+    var defaultArgs = {};
 
-      controller.injectMutableState = function ($scope, paths, viewModel) {
-        controller.injectState($scope, paths, viewModel, true);
-      };
+    this.setController = function (controllerInstance) {
+      controller = controllerInstance;
+    };
+
+    this.$get = ['$injector', function ($injector) {
+
+      controller.services({
+        '$http': $injector.get('$http')
+      });
 
       return controller;
     }];
   })
   .run(['cerebral', function (cerebral) {
-    cerebral.devtools.start();
-    if (cerebral.services.router) {
-      cerebral.services.router.trigger();
+    cerebral.getDevtools().start();
+    if (cerebral.getServices().router) {
+      cerebral.getServices().router.trigger();
     }
   }]);
 
