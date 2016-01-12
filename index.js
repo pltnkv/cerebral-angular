@@ -57,14 +57,9 @@ angular.module('cerebral', [])
       controller = controllerInstance;
     };
 
-    this.$get = ['$injector', function ($injector) {
-
-      controller.services({
-        '$http': $injector.get('$http')
-      });
-
+    this.$get = function() {
       return controller;
-    }];
+    };
   })
   .run(['cerebral', function (cerebral) {
     cerebral.getDevtools().start();

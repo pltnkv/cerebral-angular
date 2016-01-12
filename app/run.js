@@ -9,7 +9,7 @@ import {
   removeTodo
 } from './actions.js';
 
-export default function (cerebral) {
+export default function (cerebral, $http) {
 
   cerebral.signals({
     'newTodoSubmitted': [addTodo, resetNewTodoTitle, countTodos],
